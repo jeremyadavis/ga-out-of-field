@@ -18,3 +18,14 @@ FILES_LIST = [
         "extracted_path": OOF_DATA_FILENAME,
     }
 ]
+
+DATAFRAME_COLUMNS = [
+    "SCHOOL_YEAR",
+    "DISTRICT",
+    "NAME",
+    "LVL_3_DESC",
+    "LVL_2_DESC",
+    "FTE",
+    "OUTOFFIELD_FTE",
+    "OUTOFFIELD_FTE_PCT"
+]

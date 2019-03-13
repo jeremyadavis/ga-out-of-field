@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  etl:
+    build: ./etl/.
+    depends_on:
+      - 'db'
+    volumes:
+      - ./etl/.:/src
+    environment:
+      DATABASE_URL: postgres://postgres:@db:5432/postgres
+volumes:
+  db_data:
