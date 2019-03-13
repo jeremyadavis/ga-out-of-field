@@ -5,19 +5,22 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node server.js",
+    "start": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "prod": "NODE_ENV=production node server.js"
   },
   "author": "Jeremy Davis <jeremyadavis@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "apollo-boost": "^0.3.1",
     "cowsay-browser": "^1.1.8",
     "eslint": "^5.15.1",
     "express": "^4.16.4",
+    "graphql": "^14.1.1",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^8.0.3",
     "react": "^16.8.4",
+    "react-apollo": "^2.5.2",
     "react-dom": "^16.8.4"
   }
 }
