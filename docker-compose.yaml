@@ -8,11 +8,9 @@ services:
     ports:
       - '5432:5432'
   etl:
-    build: ./etl/.
+    build: ./etl/
     depends_on:
       - 'db'
-    volumes:
-      - ./etl/.:/src
     environment:
       DATABASE_URL: postgres://postgres:@db:5432/postgres
 volumes:
