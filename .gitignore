@@ -1,6 +1,7 @@
-/data
-/input
-/output
+/etl/data
+/etl/input
+/etl/output
+/etl/migrations
 .DS_Store
 .vscode/
 scratch.py

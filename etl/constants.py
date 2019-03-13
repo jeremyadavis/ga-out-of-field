@@ -1,8 +1,12 @@
 from enum import Enum
+import os
 
-INPUT_DIR = "./data/"
-OUTPUT_DIR = "./data/"
-MIGRATION_DIR = "./migrations/"
+
+SCRIPT_DIR = os.path.dirname(__file__)
+
+INPUT_DIR = f"{SCRIPT_DIR}/data/"
+OUTPUT_DIR = f"{SCRIPT_DIR}/data/"
+MIGRATION_DIR = f"{SCRIPT_DIR}/migrations/"
 
 OOF_DATA_FILENAME = "Educators_OUT_OF_FIELD_2018_JAN_24th_2019.csv"
 PUBLIC_DATA_URL = f"https://download.gosa.ga.gov/2018/{OOF_DATA_FILENAME}"
@@ -29,3 +33,5 @@ DATAFRAME_COLUMNS = [
     "OUTOFFIELD_FTE",
     "OUTOFFIELD_FTE_PCT"
 ]
+
+TABLE_NAME = "out_of_field"

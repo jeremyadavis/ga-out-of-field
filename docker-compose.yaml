@@ -13,21 +13,20 @@ services:
       - 'db'
     environment:
       DATABASE_URL: ${DATABASE_URL}
+      WAIT_HOSTS: db:5432
   graphql-engine:
-    image: hasura/graphql-engine:latest
-    # image: hasura/graphql-engine:v1.0.0-alpha39.cli-migrations
+    # image: hasura/graphql-engine:latest
+    image: hasura/graphql-engine:v1.0.0-alpha40.cli-migrations
     ports:
       - '8080:8080'
     depends_on:
       - 'etl'
     restart: always
-    # volumes:
-    #   - ./data/migrations:/hasura-migrations
+    volumes:
+      - ./etl/migrations:/hasura-migrations
     environment:
       HASURA_GRAPHQL_DATABASE_URL: ${DATABASE_URL}
-      HASURA_GRAPHQL_ENABLE_CONSOLE: 'true' # set to "false" to disable console
-      ## uncomment next line to set an access key
-      ## https://docs.docker.com/compose/environment-variables/
+      HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
       # HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
       # HASURA_GRAPHQL_AUTH_HOOK: ${HASURA_WEBHOOK_URL}
 volumes:

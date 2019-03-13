@@ -16,6 +16,7 @@ def main():
     if(engine):
         oof_maker = DataMaker(engine, OOFFile.data.value)
         oof_maker.make_tables()
+        oof_maker.make_migrations()
     else:
         pretty_print("ERROR: ENGINE NOT SET")
 
