@@ -1,6 +1,12 @@
-import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  ApolloLink
+} from 'apollo-boost';
 import fetch from 'isomorphic-unfetch';
 import getConfig from 'next/config';
+import { onError } from 'apollo-link-error';
 const { publicRuntimeConfig } = getConfig();
 
 let apolloClient = null;
@@ -11,16 +17,28 @@ if (!process.browser) {
 }
 
 function create(initialState) {
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors)
+      graphQLErrors.map(({ message, locations, path }) =>
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        )
+      );
+    if (networkError) console.log(`[Network error]: ${networkError}`);
+  });
+
+  const httpLink = new HttpLink({
+    uri: publicRuntimeConfig.API_URL,
+    credentials: 'same-origin',
+    headers: {
+      'x-hasura-admin-secret': publicRuntimeConfig.API_SECRET
+    }
+  });
+
   return new ApolloClient({
     connectToDevTools: process.browser,
     ssrMode: !process.browser,
-    link: new HttpLink({
-      uri: 'http://localhost:8080/v1alpha1/graphql',
-      credentials: 'same-origin',
-      headers: {
-        'x-hasura-admin-secret': publicRuntimeConfig.HASURA_GRAPHQL_ADMIN_SECRET
-      }
-    }),
+    link: ApolloLink.from([errorLink, httpLink]),
     cache: new InMemoryCache().restore(initialState || {})
   });
 }

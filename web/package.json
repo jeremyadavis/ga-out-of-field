@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "apollo-boost": "^0.3.1",
+    "apollo-link-error": "^1.1.10",
     "babel-plugin-module-resolver": "^3.2.0",
     "cowsay-browser": "^1.1.8",
     "dotenv": "^7.0.0",

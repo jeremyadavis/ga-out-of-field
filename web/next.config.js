@@ -8,7 +8,8 @@ module.exports = {
   // },
   publicRuntimeConfig: {
     // Will be available on both server and client
-    HASURA_GRAPHQL_ADMIN_SECRET: process.env.HASURA_GRAPHQL_ADMIN_SECRET
+    API_SECRET: process.env.API_SECRET,
+    API_URL: process.env.API_URL
   },
   webpack: config => {
     // Alias all `react-native` imports to `react-native-web`

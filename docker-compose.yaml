@@ -5,8 +5,8 @@ services:
     restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
-    ports:
-      - '5432:5432'
+    # ports:
+    #   - '5432:5432'
   etl:
     build: ./etl/
     depends_on:
@@ -15,7 +15,6 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       WAIT_HOSTS: db:5432
   graphql-engine:
-    # image: hasura/graphql-engine:latest
     image: hasura/graphql-engine:v1.0.0-alpha40.cli-migrations
     ports:
       - '8080:8080'
@@ -29,5 +28,14 @@ services:
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
       HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
       # HASURA_GRAPHQL_AUTH_HOOK: ${HASURA_WEBHOOK_URL}
+  web:
+    build: ./web/
+    depends_on:
+      - 'graphql-engine'
+    ports:
+      - '3000:3000'
+    environment:
+      API_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      API_URL: ${API_URL}
 volumes:
   db_data:
